@@ -15,14 +15,14 @@ y = np.array(a)
 x_img = []
 
 for nombre in os.listdir(r"dogs-vs-cats\train\train"):
-    images = image.load_img(r"dogs-vs-cats\train\train\\" + nombre, target_size=(150, 150))
+    images = image.load_img(r"dogs-vs-cats\train\train\\" + nombre, target_size=(28, 28))
     
     x = image.img_to_array(images)
     x = tf.image.rgb_to_grayscale(x)
-    x = np.expand_dims(x, axis=0)
+    #x = np.expand_dims(x, axis=0)
     x_img.append(x)
 
-x = np.array(x_img).reshape(150*150, -1)
+x = np.array(x_img).reshape(-1, 28*28)
 
 model = MLPClassifier(hidden_layer_sizes=(100, 100, 100), max_iter=1000)
 model.fit(x, y)
