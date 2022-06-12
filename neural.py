@@ -44,7 +44,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
     tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
     tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(32, activation='relu'),
@@ -52,12 +52,14 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Dense(32, activation='relu'),
     tf.keras.layers.Dense(16, activation='relu'),
     tf.keras.layers.Dense(32, activation='relu'),
+    tf.keras.layers.Dense(32, activation='relu'),
+    tf.keras.layers.Dense(32, activation='relu'),
     tf.keras.layers.Dense(2, activation='softmax'),
 
 ])
 model.compile(loss='categorical_crossentropy', optimizer="rmsprop", metrics=['accuracy'])
 
-filepath="weights-improvement-{epoch:02d}-{accuracy:.2f}"
+filepath="test/weights-improvement-{epoch:02d}-{accuracy:.2f}"
 checkpoint = ModelCheckpoint(filepath, monitor='accuracy', verbose=1, save_best_only=True, mode='max')
 callbacks_list = [checkpoint]
 model.fit(train_generator, epochs=25, verbose=1, callbacks=callbacks_list, batch_size=32)
